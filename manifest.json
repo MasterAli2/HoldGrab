@@ -1,0 +1,9 @@
+{
+  "name": "HoldGrab",
+  "description": "A mod for Lethal Company that lets you hold the grab button to pick up items",
+  "website_url": "https://github.com/MasterAli2/HoldGrab",
+  "version_number": "1.0.0",
+  "dependencies": [
+    "BepInEx-BepInExPack-5.4.2100"
+  ]
+}
