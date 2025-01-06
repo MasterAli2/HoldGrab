@@ -29,6 +29,7 @@ namespace HoldGrab
             Logger.LogDebug("Patching...");
 
             Harmony.PatchAll(typeof(General));
+            Harmony.PatchAll(typeof(ClosetFix));
 
             Logger.LogDebug("Finished patching!");
         }
