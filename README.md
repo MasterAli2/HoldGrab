@@ -11,5 +11,8 @@ You can also hold and interact with non hold interact triggers continuously (suc
 There is vanilla cooldown of 0.2 seconds for grabbing items.
 
 
+
+thanks [bultaming](https://github.com/tixomirof/) for helping fix an issue.
+
 ## License
 This mod is licensed under the MIT license.
