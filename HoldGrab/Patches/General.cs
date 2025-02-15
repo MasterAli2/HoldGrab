@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace HoldGrab.Patches
 {
+    [HarmonyPatch(typeof(PlayerControllerB))]
     public class General
     {
         public static float GrabPostInteractTimer = 1f;
 
-        [HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.ClickHoldInteraction))]
+        [HarmonyPatch(nameof(PlayerControllerB.ClickHoldInteraction))]
         [HarmonyPostfix]
         private static void ClickHoldPostfix(PlayerControllerB __instance)
         {
@@ -23,7 +24,12 @@ namespace HoldGrab.Patches
             }
             else
             {
-                if (((!__instance.IsOwner || !__instance.isPlayerControlled || (__instance.IsServer && !__instance.isHostPlayerObject)) && !__instance.isTestingPlayer) || false/*(!context.performed)*/ || __instance.timeSinceSwitchingSlots < 0.2f || __instance.inSpecialMenu)
+                if (((!__instance.IsOwner || !__instance.isPlayerControlled
+                    || (__instance.IsServer && !__instance.isHostPlayerObject))
+                    && !__instance.isTestingPlayer)
+                    //|| !context.performed)
+                    || __instance.timeSinceSwitchingSlots < 0.2f
+                    || __instance.inSpecialMenu)
                 {
                     return;
                 }
@@ -39,6 +45,10 @@ namespace HoldGrab.Patches
                     }
                     if (!(__instance.hoveringOverTrigger == null) && !__instance.hoveringOverTrigger.holdInteraction && (!__instance.isHoldingObject || __instance.hoveringOverTrigger.oneHandedItemAllowed) && (!__instance.twoHanded || (__instance.hoveringOverTrigger.twoHandedItemAllowed && !__instance.hoveringOverTrigger.specialCharacterAnimation)) && __instance.InteractTriggerUseConditionsMet())
                     {
+                        if (GrabPostInteractTimer < 1f)
+                            return;
+
+                        HoldGrab.Logger.LogDebug("GrabPostInteractTimer: " + GrabPostInteractTimer);
                         __instance.hoveringOverTrigger.Interact(__instance.thisPlayerBody);
                     }
                 }

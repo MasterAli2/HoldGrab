@@ -30,6 +30,7 @@ namespace HoldGrab
 
             Harmony.PatchAll(typeof(General));
             Harmony.PatchAll(typeof(ClosetFix));
+            Harmony.PatchAll(typeof(CruiserFix));
 
             Logger.LogDebug("Finished patching!");
         }
